@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="en" dir="ltr">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
+  <link rel="stylesheet" href="resellerLoginstyle.css">
+  <!-- Fontawesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="container">
+
+
+    <div class="forms">
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Login</div>
+          <form action="#">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Enter your email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Enter your password" required>
+              </div>
+              <div class="text"><a href="#">Forgot password?</a></div>
+              <div class="button input-box">
+                <input type="submit" value="Sumbit">
+              </div>
+              <div class="text sign-up-text">Don't have an account? <label id="moveToSignUp" for="flip">Sigup
+                  now</label></div>
+            </div>
+          </form>
+        </div>
+        <div class="cover">
+          <div class="front">
+            <img src="images/frontImg.jpg" alt="">
+            <div class="text">
+              <h2 class="text-1">Reseller Registeration </h2>
+              <p id="moveToSupplier" class="text-2">Want to work as a supplier ? Click here</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="signup-form">
+          <div class="title">Signup</div>
+          <form action="#">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" name="name" id="name" placeholder="Enter your name" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" name="email" id="email" placeholder="Enter your email" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+              </div>
+              <div class="input-box">
+                <i class="fa fa-map-marker"></i>
+                <input type="text" name="address" id="address" placeholder="Enter your password" required>
+              </div>
+
+              <div class="text sign-up-text">Already have an account? <label id="moveToLogin" for="flip">Login
+                  now</label></div>
+            </div>
+          </form>
+          <div class="button input-box">
+            <input type="button" onclick="register();" value="Register">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(".signup-form").hide(0);
+
+    $("#moveToSignUp").click(function () {
+      $(".login-form").hide(1000);
+      $(".signup-form").show(1000);
+
+    });
+
+    $("#moveToLogin").click(function () {
+
+      $(".signup-form").hide(1000);
+      $(".login-form").show(1000);
+
+    });
+    $("#moveToSupplier").click(function () {
+      window.open("supplyLogin.html");
+
+    });
+    function register() {
+      var name = $('#name').val();
+      var password = $('#password').val();
+      var email = $('#email').val();
+      var address = $('#address').val();
+      var phone = $('#phone').val();
+
+
+
+
+      var data = { name: name, email: email, password: password, address: address, phone: phone };
+      let post = JSON.stringify(data);
+      console.log(post);
+      $.ajax({
+        url: 'http://localhost:4000/insertreseller',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        type: 'POST',
+        contentType: 'application/json',
+        data: post,
+        success: function (results) {
+          alert("Registered Successfully ! Now Login")
+          $(".signup-form").hide(1000);
+          $(".login-form").show(1000);
+        },
+        error: function () {
+          alert('error');
+        }
+      });
+
+
+    }
+
+
+  </script>
+</body>
+
+
+
+</html>
